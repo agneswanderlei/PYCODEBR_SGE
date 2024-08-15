@@ -1,5 +1,9 @@
 from django.urls import reverse_lazy
-from django.views.generic import ListView, CreateView, DetailView, UpdateView, DeleteView
+from django.views.generic import (ListView,
+                                  CreateView,
+                                  DetailView,
+                                  UpdateView,
+                                  DeleteView)
 from . import models, forms
 
 
@@ -7,6 +11,7 @@ class BrandListView(ListView):
     model = models.Brand
     template_name = 'brand_list.html'
     context_object_name = 'brands'
+    paginate_by = 3
 
     def get_queryset(self):
         queryset = super().get_queryset()
