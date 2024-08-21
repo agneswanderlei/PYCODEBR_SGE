@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    SGE - Produtos
+{% endblock %}
+
+{% block content %}
+    <div class="container-fluid">
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <form action="{% url 'product_list' %}" method="get">
+                    <div class="input-group">
+                        <input type="text" name="product" class="form-control" value="{{request.GET.product}}" placeholder="Produtos">
+                        <button class="btn btn-primary">
+                            <i class="bi bi-search"></i>
+                        </button>
+                    </div>
+                    
+                </form>
+            </div>
+            <div class="col-md-6">
+                <a href="{% url 'product_create' %}" class="btn btn-success float-end">
+                    <i class="bi-plus-circle"></i> Novo Produto
+                </a>
+            </div>
+        </div>
+        <div class="table-responsive">
+            <table class="table table-bordered table-striped table-sm table-hover">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>ID</th>
+                        <th>Nome</th>
+                        <th>Categoria</th>
+                        <th>Marca</th>
+                        <th>Ação</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for product in products %}
+                        <tr>
+                            <td> {{product.id}} </td>
+                            <td> {{product.title}} </td>
+                            <td> {{product.category}} </td>
+                            <td> {{product.brand}} </td>
+                            <td>
+                                <a href="{% url 'product_detail' product.id %}" class="btn btn-primary btn-sm"><i class="bi bi-eye"></i></a>
+                                <a href="#" class="btn btn-warning btn-sm"><i class="bi bi-pencil"></i></a>
+                                <a href="#" class="btn btn-danger btn-sm"><i class="bi bi-trash"></i></a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+
+            </table>
+
+        </div>
+    </div>
+    {% include 'components/_pagination.html' %}
+{% endblock %}
