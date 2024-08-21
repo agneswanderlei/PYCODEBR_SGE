@@ -2,7 +2,8 @@ from django.views.generic import (
     ListView,
     CreateView,
     UpdateView,
-    DeleteView
+    DeleteView,
+    DetailView
 )
 from .models import Supplier
 from .forms import SuppliersForm
@@ -29,4 +30,22 @@ class SuppliersCreateView(CreateView):
     model = Supplier
     template_name = 'suppliers_create.html'
     form_class = SuppliersForm
+    success_url = reverse_lazy('suppliers_list')
+
+
+class SuppliersDetailView(DetailView):
+    model = Supplier
+    template_name = 'suppliers_detail.html'
+
+
+class SuppliersUpdateView(UpdateView):
+    model = Supplier
+    template_name = 'suppliers_update.html'
+    form_class = SuppliersForm
+    success_url = reverse_lazy('suppliers_list')
+
+
+class SuppliersDeleteView(DeleteView):
+    model = Supplier
+    template_name = 'suppliers_delete.html'
     success_url = reverse_lazy('suppliers_list')

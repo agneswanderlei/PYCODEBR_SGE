@@ -41,14 +41,14 @@ SGE - Fornecedores
                     <td> {{ supply.name }} </td>
                     <td> {{ supply.description }} </td>
                     <td>
-                        <a href="#" class="btn btn-primary btn-sm">
+                        <a href="{% url 'suppliers_detail' supply.id %}" class="btn btn-primary btn-sm">
                             <i class="bi bi-eye"></i>
                         </a>
-                        <a href="#" class="btn btn-warning btn-sm">
-                            <i class="bi bi-eye"></i>
+                        <a href="{% url 'suppliers_update' supply.id %}" class="btn btn-warning btn-sm">
+                            <i class="bi bi-pencil"></i>
                         </a>
-                        <a href="#" class="btn btn-danger btn-sm">
-                            <i class="bi bi-eye"></i>
+                        <a href="{% url 'suppliers_delete' supply.id %}" class="btn btn-danger btn-sm">
+                            <i class="bi bi-trash"></i>
                         </a>
                     </td>
                 </tr>
@@ -56,7 +56,7 @@ SGE - Fornecedores
             
         </tbody>
     </table>
-
+    {% include 'components/_pagination.html' %}
 </div>
     
 {% endblock  %}

@@ -1,15 +1,15 @@
 {% extends "base.html" %}
 
 {% block  title %}
-SGE - Marcas
+SGE - Entradas
 {% endblock  %}
 
 {% block content %}
 <div class="row mb-3">
     <div class="col-md-6">
-        <form action="{% url 'brand_list' %}" method="get">
+        <form action="{% url 'inflow_list' %}" method="get">
             <div class="input-group">
-                <input type="text" class="form-control" name="name" placeholder="Nome" value="{{ request.GET.name }}">
+                <input type="text" class="form-control" name="product" placeholder="Produto" value="{{ request.GET.product }}">
                 <button type="submit" class="btn btn-primary">
                     <i class="bi bi-search"></i>
                 </button>
@@ -22,8 +22,8 @@ SGE - Marcas
 
     </div>
     <div class="col-md-6">
-        <a href="{% url 'brand_create' %}" class="btn btn-success float-end ">
-            <i class="bi bi-plus-circle"></i> Nova Marca
+        <a href="{% url 'inflow_create' %}" class="btn btn-success float-end ">
+            <i class="bi bi-plus-circle"></i> Nova entrada
         </a>
     </div>
     
@@ -34,26 +34,25 @@ SGE - Marcas
         <thead class="thead-dark">
             <tr>
                 <th>ID</th>
-                <th>Nome</th>
-                <th>Descrição</th>
+                <th>Produtp</th>
+                <th>Fornecedor</th>
+                <th>Quantidade</th>
+                <th>Data de Entrada</th>
                 <th>Ações</th>
             </tr>
         </thead>
         <tbody>
-            {% for brand in brands %}
+            {% for inflow in inflows %}
                 <tr>
-                    <td> {{ brand.id}} </td>
-                    <td> {{ brand.name}} </td>
-                    <td> {{ brand.description}} </td>
+                    <td> {{ inflow.id}} </td>
+                    <td> {{ inflow.product}} </td>
+                    <td> {{ inflow.supplier}} </td>
+                    <td> {{ inflow.quantity}} </td>
+                    <td> {{ inflow.created_at}} </td>
+
                     <td>
-                        <a href="{% url 'brand_detail' brand.id %}" class="btn btn-info btn-sm">
+                        <a href="{% url 'inflow_detail' inflow.id %}" class="btn btn-info btn-sm">
                             <i class="bi bi-eye"></i>
-                        </a>
-                        <a href="{% url 'brand_update' brand.id %}" class="btn btn-warning btn-sm">
-                            <i class="bi bi-pencil-fill"></i>
-                        </a>
-                        <a href="{% url 'brand_delete' brand.id %}" class="btn btn-danger btn-sm">
-                            <i class="bi bi-trash"></i>
                         </a>
                     </td>
                     

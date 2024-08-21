@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container-fluid">
+        <h3 class="display-6"> Atualizar Fornecedor</h3>
+        <div class="card">
+            <div class="card-body">
+                <form class="form" method="post">
+                    {% csrf_token %}
+                    {{form.as_p}}
+                    <button type="submit" class="btn btn-primary"> Atualizar</button>
+                    <a href="{% url 'suppliers_list' %}" class="btn btn-secondary " style="margin-left: 15px;">Voltar</a>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}
