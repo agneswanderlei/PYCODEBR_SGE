@@ -10,7 +10,8 @@
             <div class="col-md-6">
                 <form action="{% url 'product_list' %}" method="get">
                     <div class="input-group">
-                        <input type="text" name="product" class="form-control" value="{{request.GET.product}}" placeholder="Produtos">
+                        <input type="text" name="title" class="form-control" value="{{request.GET.title}}" placeholder="Produtos">
+                        <input type="text" name="serie_number" class="form-control" value="{{request.GET.serie_number}}" placeholder="Número de série">
                         <button class="btn btn-primary">
                             <i class="bi bi-search"></i>
                         </button>
@@ -24,14 +25,43 @@
                 </a>
             </div>
         </div>
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <form method="get" action="{% url 'product_list' %}">
+                    <div class="input-group">
+                        <select name="category" class="form-select">
+                            <option value="" {% if not request.GET.category %} selected {% endif %} >Todas as Categorias</option>
+                            {% for category in categories %}
+                                <option value="{{category.id}}" {% if request.GET.category == category.id|stringformat:'s' %} selected {% endif %}> {{category.name}} </option>
+                            {% endfor %}
+                        </select>
+                        <select name="brand" class="form-select">
+                            <option value="" {% if not request.GET.brand %} selected {% endif %} >Todas as Marcas</option>
+                            {% for brand in brands %}
+                                <option value="{{brand.id}}" {% if request.GET.brand == brand.id|stringformat:'s' %} selected {% endif %}> {{brand.name}} </option>
+                            {% endfor %}
+                        </select>
+                        <button type="submit" class="btn btn-primary ">
+                            <i class="bi bi-filter"></i> Filtrar
+                        </button>
+                    </div>
+                    
+                </form>
+
+            </div>
+        </div>
         <div class="table-responsive">
             <table class="table table-bordered table-striped table-sm table-hover">
                 <thead class="thead-dark">
                     <tr>
                         <th>ID</th>
-                        <th>Nome</th>
+                        <th>Título</th>
                         <th>Categoria</th>
                         <th>Marca</th>
+                        <th>Preço de Custo</th>
+                        <th>Preço de Venda</th>
+                        <th>Número de Série</th>
+                        <th>Quantidade</th>
                         <th>Ação</th>
                     </tr>
                 </thead>
@@ -42,10 +72,14 @@
                             <td> {{product.title}} </td>
                             <td> {{product.category}} </td>
                             <td> {{product.brand}} </td>
+                            <td> R$ {{product.cost_price}} </td>
+                            <td> R$ {{product.selling_prince}} </td>
+                            <td> {{product.serie_number}} </td>
+                            <td> {{product.quantity}} </td>
                             <td>
                                 <a href="{% url 'product_detail' product.id %}" class="btn btn-primary btn-sm"><i class="bi bi-eye"></i></a>
-                                <a href="#" class="btn btn-warning btn-sm"><i class="bi bi-pencil"></i></a>
-                                <a href="#" class="btn btn-danger btn-sm"><i class="bi bi-trash"></i></a>
+                                <a href="{% url 'product_update' product.id %}" class="btn btn-warning btn-sm"><i class="bi bi-pencil"></i></a>
+                                <a href="{% url 'product_delete' product.id %}" class="btn btn-danger btn-sm"><i class="bi bi-trash"></i></a>
                             </td>
                         </tr>
                     {% endfor %}

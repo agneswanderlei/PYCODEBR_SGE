@@ -14,7 +14,6 @@ class ProductForm(forms.ModelForm):
             'serie_number',
             'cost_price',
             'selling_prince',
-            'quantity'
         ]
         widgets = {
             'title': forms.TextInput(attrs={'class': 'form-control'}),
@@ -27,7 +26,6 @@ class ProductForm(forms.ModelForm):
             'selling_prince': forms.NumberInput(attrs={
                 'class': 'form-control'
             }),
-            'quantity': forms.NumberInput(attrs={'class': 'form-control'})
         }
         labels = {
             'title': 'Nome do Produto',
@@ -37,5 +35,4 @@ class ProductForm(forms.ModelForm):
             'serie_number': 'Número de Série',
             'cost_price': 'Preço de Custo',
             'selling_prince': 'Preço de Venda',
-            'quantity': 'Quantidade'
         }
