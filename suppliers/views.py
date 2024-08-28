@@ -8,9 +8,10 @@ from django.views.generic import (
 from .models import Supplier
 from .forms import SuppliersForm
 from django.urls import reverse_lazy
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 
-class SuppliersListView(ListView):
+class SuppliersListView(LoginRequiredMixin, ListView):
 
     model = Supplier
     template_name = 'suppliers_list.html'
@@ -26,26 +27,26 @@ class SuppliersListView(ListView):
         return queryset
 
 
-class SuppliersCreateView(CreateView):
+class SuppliersCreateView(LoginRequiredMixin, CreateView):
     model = Supplier
     template_name = 'suppliers_create.html'
     form_class = SuppliersForm
     success_url = reverse_lazy('suppliers_list')
 
 
-class SuppliersDetailView(DetailView):
+class SuppliersDetailView(LoginRequiredMixin, DetailView):
     model = Supplier
     template_name = 'suppliers_detail.html'
 
 
-class SuppliersUpdateView(UpdateView):
+class SuppliersUpdateView(LoginRequiredMixin, UpdateView):
     model = Supplier
     template_name = 'suppliers_update.html'
     form_class = SuppliersForm
     success_url = reverse_lazy('suppliers_list')
 
 
-class SuppliersDeleteView(DeleteView):
+class SuppliersDeleteView(LoginRequiredMixin, DeleteView):
     model = Supplier
     template_name = 'suppliers_delete.html'
     success_url = reverse_lazy('suppliers_list')
