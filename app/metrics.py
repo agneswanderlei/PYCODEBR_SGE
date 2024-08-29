@@ -111,3 +111,39 @@ def get_graphic_product_brand_metric():
         brand.name: Product.objects.filter(brand=brand).count()
         for brand in brands
     }
+
+
+def get_product_metrics_filter(self):
+    products = Product.objects.all()
+    brand = self.request.GET.get('brand')
+    category = self.request.GET.get('category')
+
+    if brand:
+        products = products.filter(brand__id=brand)
+
+    if category:
+        products = products.filter(category__id=category)
+
+    total_cost_price = sum(
+        product.cost_price * product.quantity for product in products
+    )
+    total_selling_price = sum(
+        product.selling_prince * product.quantity for product in products
+    )
+    total_quantity = sum(
+        product.quantity for product in products
+    )
+    total_profit = total_selling_price - total_cost_price
+
+    return dict(
+        total_cost_price=number_format(
+            total_cost_price, decimal_pos=2, force_grouping=True
+        ),
+        total_selling_price=number_format(
+            total_selling_price, decimal_pos=2, force_grouping=True
+        ),
+        total_quantity=total_quantity,
+        total_profit=number_format(
+            total_profit, decimal_pos=2, force_grouping=True
+        ),
+    )
